@@ -1,0 +1,190 @@
+<div class="page">
+
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-tag">ORGANISEZ VOTRE JOURNÉE</p>
+    <h1>TaskFlow</h1>
+    <p class="hero-subtitle">
+      Gérez vos tâches simplement et gardez le contrôle sur vos priorités.
+    </p>
+  </div>
+
+  <div class="hero-badge">
+    <span>Productivité</span>
+    <strong>Simple • Claire • Moderne</strong>
+  </div>
+</section>
+
+  <section class="stats-grid">
+    <div class="stat-card">
+      <span>Total</span>
+      <strong>{{ stats.total }}</strong>
+      <p>Tâches créées</p>
+    </div>
+
+    <div class="stat-card blue">
+      <span>À faire</span>
+      <strong>{{ stats.todo }}</strong>
+      <p>À démarrer</p>
+    </div>
+
+    <div class="stat-card orange">
+      <span>En cours</span>
+      <strong>{{ stats.inProgress }}</strong>
+      <p>Travail actif</p>
+    </div>
+
+    <div class="stat-card green">
+      <span>Terminées</span>
+      <strong>{{ stats.done }}</strong>
+      <p>Objectifs validés</p>
+    </div>
+  </section>
+
+  <main class="layout">
+
+    <section class="form-panel">
+      <h2>Créer une nouvelle tâche</h2>
+      <p class="muted">
+        Créez une tâche et suivez son évolution en toute simplicité.
+      </p>
+
+      <label>Titre</label>
+      <input
+        type="text"
+        placeholder="Ex : Préparer la présentation"
+        [(ngModel)]="newTask.title"
+      />
+
+      <label>Description</label>
+      <textarea
+        placeholder="Décrivez rapidement la tâche..."
+        [(ngModel)]="newTask.description">
+      </textarea>
+
+      <div class="two-cols">
+        <div>
+          <label>Statut</label>
+          <select [(ngModel)]="newTask.status">
+            <option value="TODO">À faire</option>
+            <option value="IN_PROGRESS">En cours</option>
+            <option value="DONE">Terminée</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Priorité</label>
+          <select [(ngModel)]="newTask.priority">
+            <option value="LOW">Faible</option>
+            <option value="MEDIUM">Moyenne</option>
+            <option value="HIGH">Haute</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn primary" (click)="saveTask()">
+          {{ editingTaskId ? 'Enregistrer les modifications' : 'Ajouter la tâche' }}
+        </button>
+
+        <button class="btn ghost" *ngIf="editingTaskId" (click)="resetForm()">
+          Annuler
+        </button>
+      </div>
+    </section>
+
+    <section class="tasks-panel">
+      <div class="tasks-header">
+        <div>
+          <h2>Mes tâches du moment</h2>
+          <p class="muted">
+            Suivez vos priorités et gardez une vision claire de votre avancement.
+          </p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <input
+          class="search"
+          type="text"
+          placeholder="Rechercher une tâche..."
+          [(ngModel)]="searchText"
+        />
+
+        <div class="filters">
+          <button [class.active]="selectedFilter === 'ALL'" (click)="setFilter('ALL')">
+            Toutes
+          </button>
+
+          <button [class.active]="selectedFilter === 'TODO'" (click)="setFilter('TODO')">
+            À faire
+          </button>
+
+          <button [class.active]="selectedFilter === 'IN_PROGRESS'" (click)="setFilter('IN_PROGRESS')">
+            En cours
+          </button>
+
+          <button [class.active]="selectedFilter === 'DONE'" (click)="setFilter('DONE')">
+            Terminées
+          </button>
+        </div>
+      </div>
+
+      <div class="error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="empty" *ngIf="filteredTasks.length === 0 && !errorMessage">
+        <div class="empty-icon">✨</div>
+        <h3>Aucune tâche pour le moment</h3>
+        <p>Ajoutez votre première tâche pour commencer à organiser votre journée.</p>
+      </div>
+
+      <article class="task-card" *ngFor="let task of filteredTasks">
+        <div class="task-top">
+          <div>
+            <h3>{{ task.title }}</h3>
+            <p>{{ task.description || 'Aucune description.' }}</p>
+          </div>
+
+          <span
+            class="priority"
+            [class.low]="task.priority === 'LOW'"
+            [class.medium]="task.priority === 'MEDIUM'"
+            [class.high]="task.priority === 'HIGH'">
+            {{ getPriorityLabel(task.priority) }}
+          </span>
+        </div>
+
+        <div class="task-bottom">
+          <select
+            [ngModel]="task.status"
+            (ngModelChange)="changeStatus(task, $event)">
+            <option value="TODO">À faire</option>
+            <option value="IN_PROGRESS">En cours</option>
+            <option value="DONE">Terminée</option>
+          </select>
+
+          <span
+            class="status"
+            [class.todo]="task.status === 'TODO'"
+            [class.progress]="task.status === 'IN_PROGRESS'"
+            [class.done]="task.status === 'DONE'">
+            {{ getStatusLabel(task.status) }}
+          </span>
+
+          <div class="card-actions">
+            <button class="btn small edit" (click)="editTask(task)">
+              Modifier
+            </button>
+
+            <button class="btn small delete" (click)="deleteTask(task.id)">
+              Supprimer
+            </button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+  </main>
+</div>
