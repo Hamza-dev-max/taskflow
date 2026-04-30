@@ -1,10 +1,12 @@
-# TaskFlow — Application de gestion de tâches fullstack
+# TaskFlow — Application de gestion de tâches
 
-TaskFlow est une application web fullstack de gestion de tâches développée dans un cadre académique à l’EMSI Rabat.
+TaskFlow est une application web fullstack permettant de créer, organiser et suivre ses tâches au quotidien.
+
+L’application propose une interface moderne pour gérer les tâches, suivre leur statut, définir leur priorité et visualiser des statistiques simples.
 
 ## Objectif
 
-Permettre à un utilisateur de créer, modifier, supprimer et suivre l’avancement de ses tâches à travers une interface moderne connectée à une API REST.
+Permettre à un utilisateur de mieux organiser son travail grâce à une application simple, claire et efficace.
 
 ## Fonctionnalités
 
@@ -15,10 +17,10 @@ Permettre à un utilisateur de créer, modifier, supprimer et suivre l’avancem
 - Gestion de priorité : faible, moyenne, haute
 - Recherche de tâches
 - Filtrage par statut
-- Dashboard de statistiques
-- Persistance des données avec MySQL
+- Tableau de bord avec statistiques
+- Sauvegarde des tâches côté backend
 
-## Technologies
+## Technologies utilisées
 
 ### Backend
 - Java
@@ -26,7 +28,8 @@ Permettre à un utilisateur de créer, modifier, supprimer et suivre l’avancem
 - Spring Web
 - Spring Data JPA
 - Hibernate
-- MySQL
+- H2 pour le test local
+- MySQL prévu pour une configuration base de données relationnelle
 
 ### Frontend
 - Angular
@@ -39,55 +42,11 @@ Permettre à un utilisateur de créer, modifier, supprimer et suivre l’avancem
 - GitHub
 - VS Code
 - Maven
+- npm
 
 ## Architecture
 
 ```txt
 TaskFlow/
-├── taskflow-backend/
-│   └── API REST Spring Boot
-└── taskflow-frontend/
-    └── Interface Angular
-```
-
-## Base de données
-
-Créer une base MySQL :
-
-```sql
-CREATE DATABASE taskflow_db;
-```
-
-La table `tasks` est générée automatiquement par Hibernate.
-
-## Lancer le backend
-
-```bash
-cd taskflow-backend
-mvn spring-boot:run
-```
-
-API disponible sur :
-
-```txt
-http://localhost:8080/api/tasks
-```
-
-## Lancer le frontend
-
-```bash
-cd taskflow-frontend
-npm install
-ng serve
-```
-
-Application disponible sur :
-
-```txt
-http://localhost:4200/
-```
-
-## Auteur
-
-Hamza Marzaq  
-Projet académique EMSI Rabat — 2023 / 2024
+├── taskflow-backend/      # API REST
+└── taskflow-frontend/     # Interface utilisateur
