@@ -314,33 +314,6 @@ Ce projet démontre ma capacité à :
 - structurer un projet frontend/backend ;
 - utiliser Maven et npm dans un projet complet ;
 - organiser une application web claire, simple et maintenable.
-
----
-
-## Présentation courte pour un entretien
-
-TaskFlow est une application full stack de gestion de tâches.
-
-Le projet contient un frontend Angular et un backend Spring Boot.  
-J’ai développé une API REST permettant de créer, consulter, modifier et supprimer des tâches.  
-L’interface permet aussi de gérer les statuts, les priorités, la recherche, le filtrage et un tableau de bord avec des statistiques simples.
-
-Pour tester le projet, je lance d’abord le backend Spring Boot, puis le frontend Angular. Ensuite, j’ouvre l’application dans le navigateur avec l’adresse locale.
-
----
-
-## Améliorations possibles
-
-- Ajouter une authentification utilisateur
-- Ajouter une base de données MySQL en production
-- Ajouter Docker
-- Ajouter des tests unitaires
-- Ajouter un système de deadline pour les tâches
-- Ajouter des notifications
-- Déployer le frontend et le backend en ligne
-
----
-
 ## Auteur
 
 **Hamza Marzaq**
